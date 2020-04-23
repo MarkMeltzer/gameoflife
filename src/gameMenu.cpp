@@ -24,48 +24,48 @@ int gameMenu::getInput(int min, int max) {
 }
 
 void gameMenu::mainMenu() {
-    std::cout << "[1]Stop [2]Clean [3]Randomize [4]One [5]Go " << 
-                 "[6]Move" << std::endl;
+    while(game->getGameStatus()) {
+        std::cout << ":::::::::::::::::::::Main menu::::::::::::::::::::" << std::endl;
+        std::cout << "[1]Stop [2]Clean [3]Randomize [4]One [5]Go " << 
+                    "[6]Move" << std::endl;
 
-    switch (getInput(1,8)) {
-    case 1:
-        game->stopGame();
-        break;
-    case 2:
-        clean();
-        break;
-    case 3:
-        randomize();
-        break;
-    case 4:
-        one();
-        break;
-    case 5:
-        hundred();
-        break;
-    case 6:
-        world->printGrid();
-        moveMenu();
-        break;
+        switch (getInput(1,8)) {
+        case 1:
+            game->stopGame();
+            break;
+        case 2:
+            clean();
+            break;
+        case 3:
+            randomize();
+            break;
+        case 4:
+            one();
+            break;
+        case 5:
+            hundred();
+            break;
+        case 6:
+            world->printGrid();
+            moveMenu();
+            break;
+        }
     }
 }
 
 void gameMenu::clean() {
     world->fillGrid(true);
     world->printGrid();
-    mainMenu();
 }
 
 void gameMenu::randomize() {
     world->fillGrid(false);
     world->printGrid();
-    mainMenu();
 }
 
 void gameMenu::one() {
     world->updateGame();
     world->printGrid();
-    mainMenu();
 }
 
 void gameMenu::hundred() {
@@ -74,36 +74,36 @@ void gameMenu::hundred() {
         world->printGrid();
         usleep(50000);
     }
-    mainMenu();
 }
 
 void gameMenu::moveMenu() {
-    std::cout << "[1]Left [2]Right [3]Up [4]Down [5]Main Menu" << std::endl;
+    bool inMoveMenu = true;
 
-    switch (getInput(1,8)) {
-    case 1:
-        game->changeViewPortX(-20);
-        world->printGrid();
-        moveMenu();
-        break;
-    case 2:
-        game->changeViewPortX(20);
-        world->printGrid();
-        moveMenu();
-        break;
-    case 3:
-        game->changeViewPortY(-20);
-        world->printGrid();
-        moveMenu();
-        break;
-    case 4:
-        game->changeViewPortY(20);
-        world->printGrid();
-        moveMenu();
-        break;
-    case 5:
-        world->printGrid();
-        mainMenu();
-        break;
+    while (inMoveMenu) {
+        std::cout << "::::::::::::::::::Move menu:::::::::::::::::" << std::endl;
+        std::cout << "[1]Left [2]Right [3]Up [4]Down [5]Main Menu" << std::endl;
+
+        switch (getInput(1,8)) {
+        case 1:
+            game->changeViewPortX(-20);
+            world->printGrid();
+            break;
+        case 2:
+            game->changeViewPortX(20);
+            world->printGrid();
+            break;
+        case 3:
+            game->changeViewPortY(-20);
+            world->printGrid();
+            break;
+        case 4:
+            game->changeViewPortY(20);
+            world->printGrid();
+            break;
+        case 5:
+            world->printGrid();
+            inMoveMenu = false;
+            break;
+        }
     }
 }

@@ -62,10 +62,16 @@ int gameOfLife::getViewPortSizeY() {
 }
 
 void gameOfLife::startGame() {
+    running = true;
     world->printGrid();
     menu->mainMenu();
 }
 
 void gameOfLife::stopGame() {
+    running = false;
     std::cout << "Exiting game...Hope you had fun." << std::endl;
+}
+
+bool gameOfLife::getGameStatus() {
+    return running;
 }

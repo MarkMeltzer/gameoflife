@@ -14,6 +14,8 @@ private:
     gameWorld *world;
     gameMenu *menu;
 
+    bool running;
+
     // the coordinates of the top-left corner of the viewport
     // and the size of the viewport
     int viewPortX;
@@ -27,6 +29,7 @@ public:
 
     void startGame();
     void stopGame();
+    bool getGameStatus();
 
     int getViewPortX();
     int getViewPortY();
