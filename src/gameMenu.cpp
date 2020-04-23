@@ -1,12 +1,13 @@
-#include "../headers/gameOfLife.hpp"
-#include "../headers/gameWorld.hpp"
 #include "../headers/gameMenu.hpp"
 #include <cstdio>
 #include <iostream>
 
-gameMenu::gameMenu(gameWorld *w, gameOfLife *g) {
-    game = g;
+gameMenu::gameMenu(gameWorld *w) {
     world = w;
+}
+
+void gameMenu::linkGameObj(gameOfLife *g) {
+    game = g;
 }
 
 int gameMenu::getInput(int min, int max) {
@@ -26,6 +27,7 @@ void gameMenu::mainMenu() {
 
     switch (getInput(1,8)) {
     case 1:
+        game->stopGame();
         break;
     case 2:
         clean();

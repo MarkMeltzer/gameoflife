@@ -8,8 +8,11 @@
 int main() {
     randomNumberGenerator rng;
     gameWorld world(&rng);
-    gameOfLife game(&rng, &world);
-    gameMenu menu(&world, &game);
+    gameMenu menu(&world);
+    gameOfLife game(&rng, &world, &menu);
+    menu.linkGameObj(&game);
+    
+    game.startGame();
 
 
     std::cout << "This is the end of main..." << std::endl;

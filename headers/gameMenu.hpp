@@ -1,8 +1,10 @@
 #ifndef GAMEMENU_HPP
 #define GAMEMENU_HPP
 
-#include "gameOfLife.hpp"
+class gameMenu;
+
 #include "gameWorld.hpp"
+#include "gameOfLife.hpp"
 
 class gameMenu {
 private:
@@ -14,8 +16,9 @@ public:
     void mainMenu();
     void clean();
     void randomize();
+    void linkGameObj(gameOfLife *g);
 
-    gameMenu(gameWorld *w, gameOfLife *g);
+    gameMenu(gameWorld *w);
 };
 
 #endif
