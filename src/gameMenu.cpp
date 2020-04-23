@@ -1,6 +1,7 @@
 #include "../headers/gameMenu.hpp"
 #include <cstdio>
 #include <iostream>
+#include <unistd.h>
 
 gameMenu::gameMenu(gameWorld *w) {
     world = w;
@@ -23,7 +24,8 @@ int gameMenu::getInput(int min, int max) {
 }
 
 void gameMenu::mainMenu() {
-    std::cout << "[1]Stop [2]Clean [3]Randomize" << std::endl;
+    std::cout << "[1]Stop [2]Clean [3]Randomize [4]One [5]Go " << 
+                 "[6]Move" << std::endl;
 
     switch (getInput(1,8)) {
     case 1:
@@ -34,6 +36,16 @@ void gameMenu::mainMenu() {
         break;
     case 3:
         randomize();
+        break;
+    case 4:
+        one();
+        break;
+    case 5:
+        hundred();
+        break;
+    case 6:
+        world->printGrid();
+        moveMenu();
         break;
     }
 }
@@ -48,4 +60,50 @@ void gameMenu::randomize() {
     world->fillGrid(false);
     world->printGrid();
     mainMenu();
+}
+
+void gameMenu::one() {
+    world->updateGame();
+    world->printGrid();
+    mainMenu();
+}
+
+void gameMenu::hundred() {
+    for (int i = 0; i < 100; i++) {
+        world->updateGame();
+        world->printGrid();
+        usleep(50000);
+    }
+    mainMenu();
+}
+
+void gameMenu::moveMenu() {
+    std::cout << "[1]Left [2]Right [3]Up [4]Down [5]Main Menu" << std::endl;
+
+    switch (getInput(1,8)) {
+    case 1:
+        game->changeViewPortX(-20);
+        world->printGrid();
+        moveMenu();
+        break;
+    case 2:
+        game->changeViewPortX(20);
+        world->printGrid();
+        moveMenu();
+        break;
+    case 3:
+        game->changeViewPortY(-20);
+        world->printGrid();
+        moveMenu();
+        break;
+    case 4:
+        game->changeViewPortY(20);
+        world->printGrid();
+        moveMenu();
+        break;
+    case 5:
+        world->printGrid();
+        mainMenu();
+        break;
+    }
 }

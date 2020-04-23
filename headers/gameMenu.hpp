@@ -16,7 +16,10 @@ public:
     void mainMenu();
     void clean();
     void randomize();
+    void one();
+    void hundred();
     void linkGameObj(gameOfLife *g);
+    void moveMenu();
 
     gameMenu(gameWorld *w);
 };

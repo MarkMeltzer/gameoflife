@@ -11,6 +11,7 @@ int main() {
     gameMenu menu(&world);
     gameOfLife game(&rng, &world, &menu);
     menu.linkGameObj(&game);
+    world.linkGameObj(&game);
     
     game.startGame();
 

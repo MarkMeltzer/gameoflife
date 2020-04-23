@@ -6,6 +6,10 @@ gameWorld::gameWorld(randomNumberGenerator *r) {
     rng = r;
 }
 
+void gameWorld::linkGameObj(gameOfLife *g) {
+    game = g;
+}
+
 void gameWorld::setAliveProbability(float p) {
     aliveProbability = p;
 }
@@ -17,7 +21,6 @@ void gameWorld::fillGrid(bool empty) {
             if (empty) {
                 cellValue = 0;
             } else {
-                // std::cout << "wat";
                 if (rng->getRnd() < aliveProbability) {
                     cellValue = 1;
                 } else {
@@ -31,12 +34,21 @@ void gameWorld::fillGrid(bool empty) {
 }
 
 void gameWorld::printGrid() {
-    for (int x = 0; x < gridSize; x++) {
-        for (int y = 0; y < gridSize; y++) {
-            if (grid[x][y] == 1) {
-                std::cout << 'O';
+    int minX = game->getViewPortX();
+    int minY = game->getViewPortY();
+    int maxX = game->getViewPortSizeX();
+    int maxY = game->getViewPortSizeY();
+
+    for (int y = minY; y < minY + maxY; y++) {
+        for (int x = minX; x < minX + maxX; x++) {
+            if (x < 0 || y < 0 || x >= 200 || y >= 200) {
+                std::cout << '#';
             } else {
-                std::cout << '.';
+                if (grid[y][x] == 1) {
+                    std::cout << 'O';
+                } else {
+                    std::cout << '.';
+                }
             }
         }
         std::cout << std::endl;
