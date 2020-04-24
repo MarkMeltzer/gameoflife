@@ -22,6 +22,11 @@ private:
     int viewPortY;
     int viewPortSizeX;
     int viewPortSizeY;
+    int viewPortStepSizeX;
+    int viewPortStepSizeY;
+
+    char lifeCellChar;
+    char deadCellChar;
 
 public:
     // Set up
@@ -37,8 +42,20 @@ public:
     int getViewPortSizeX();
     int getViewPortSizeY();
 
+    int getViewPortStepSizeX();
+    int getViewPortStepSizeY();
+
     void changeViewPortX(int change);
     void changeViewPortY(int change);
+
+    void changeViewPortStepSizeX(int newSize);
+    void changeViewPortStepSizeY(int newSize);
+
+    void setLifeCellChar(char c);
+    void setDeadCellChar(char c);
+
+    char getLifeCellChar();
+    char getDeadCellChar();
 };
 
 #endif

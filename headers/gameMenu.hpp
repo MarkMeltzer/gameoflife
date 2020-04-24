@@ -12,7 +12,9 @@ private:
     gameWorld *world;
 
 public:
-    int getInput(int min, int max);
+    int getMenuInput(int min, int max);
+    float getInputFloat(float min, float max);
+    char getInputChar();
     void mainMenu();
     void clean();
     void randomize();
@@ -20,6 +22,7 @@ public:
     void hundred();
     void linkGameObj(gameOfLife *g);
     void moveMenu();
+    void paramMenu();
 
     gameMenu(gameWorld *w);
 };

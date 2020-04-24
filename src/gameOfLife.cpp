@@ -9,10 +9,16 @@ gameOfLife::gameOfLife(randomNumberGenerator *r, gameWorld *w, gameMenu *m) {
 
     world->setAliveProbability(0.5);
     world->fillGrid(false);
+
     viewPortX = 20;
     viewPortY = 60;
     viewPortSizeX = 80;
     viewPortSizeY = 40;
+    viewPortStepSizeX = 20;
+    viewPortStepSizeY = 20;
+
+    lifeCellChar = 'O';
+    deadCellChar = '.';
 }
 
 void gameOfLife::changeViewPortX(int change) {
@@ -61,6 +67,14 @@ int gameOfLife::getViewPortSizeY() {
     return viewPortSizeY;
 }
 
+int gameOfLife::getViewPortStepSizeX() {
+    return viewPortStepSizeX;
+}
+
+int gameOfLife::getViewPortStepSizeY() {
+    return viewPortStepSizeY;
+}
+
 void gameOfLife::startGame() {
     running = true;
     world->printGrid();
@@ -74,4 +88,28 @@ void gameOfLife::stopGame() {
 
 bool gameOfLife::getGameStatus() {
     return running;
+}
+
+void gameOfLife::changeViewPortStepSizeX(int newSize) {
+    viewPortStepSizeX = newSize;
+}
+
+void gameOfLife::changeViewPortStepSizeY(int newSize) {
+    viewPortStepSizeY = newSize;
+}
+
+void gameOfLife::setDeadCellChar(char c) {
+    deadCellChar = c;
+}
+
+void gameOfLife::setLifeCellChar(char c) {
+    lifeCellChar = c;
+}
+
+char gameOfLife::getDeadCellChar() {
+    return deadCellChar;
+}
+
+char gameOfLife::getLifeCellChar() {
+    return lifeCellChar;
 }

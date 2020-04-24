@@ -14,9 +14,13 @@ void gameWorld::setAliveProbability(float p) {
     aliveProbability = p;
 }
 
+float gameWorld::getAliveProbability() {
+    return aliveProbability;
+}
+
 void gameWorld::fillGrid(bool empty) {
-    for (int x = 0; x < gridSize; x++) {
-        for (int y = 0; y < gridSize; y++) {
+    for (int x = 0; x < 200; x++) {
+        for (int y = 0; y < 200; y++) {
             int cellValue;
             if (empty) {
                 cellValue = 0;
@@ -45,9 +49,9 @@ void gameWorld::printGrid() {
                 std::cout << '#';
             } else {
                 if (grid[y][x] == 1) {
-                    std::cout << 'O';
+                    std::cout << game->getLifeCellChar();
                 } else {
-                    std::cout << '.';
+                    std::cout << game->getDeadCellChar();
                 }
             }
         }
@@ -57,9 +61,9 @@ void gameWorld::printGrid() {
 }
 
 void gameWorld::updateGame() {
-    int updatedGrid[gridSize][gridSize];
-    for (int x = 0; x < gridSize; x++) {
-        for (int y = 0; y < gridSize; y++) {
+    int updatedGrid[200][200];
+    for (int x = 0; x < 200; x++) {
+        for (int y = 0; y < 200; y++) {
             // count the alive neighbours
             int nb = countAliveNb(x, y);
 
@@ -77,8 +81,8 @@ void gameWorld::updateGame() {
     }
 
     // replace the old grid with the new one
-    for (int x = 0; x < gridSize; x++) {
-        for (int y = 0; y < gridSize; y++) {
+    for (int x = 0; x < 200; x++) {
+        for (int y = 0; y < 200; y++) {
             grid[x][y] = updatedGrid[x][y];
         }
     }

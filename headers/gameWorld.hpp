@@ -14,8 +14,7 @@ private:
 
 
     // declare grid
-    static const int gridSize = 200;
-    int grid[gridSize][gridSize];
+    int grid[200][200];
     
     // initialize properties
     float aliveProbability;
@@ -30,6 +29,7 @@ public:
     void updateGame();
     int countAliveNb(int x, int y);
     void setAliveProbability(float p);
+    float getAliveProbability();
 };
 
 #endif
