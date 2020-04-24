@@ -5,6 +5,7 @@ class gameOfLife;
 
 #include "randomNumberGenerator.hpp"
 #include "gameOfLife.hpp"
+#include <fstream>
 
 class gameWorld {
 private:
@@ -24,6 +25,7 @@ public:
 
     // declare game functions
     void linkGameObj(gameOfLife *g);
+    void changeGridByFile(std::ifstream& file);
     void fillGrid(bool empty);
     void printGrid();
     void updateGame();

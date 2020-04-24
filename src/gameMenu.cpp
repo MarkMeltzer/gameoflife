@@ -48,6 +48,25 @@ char gameMenu::getInputChar() {
     return input[0];
 }
 
+std::ifstream gameMenu::getInputFile() {
+    std::ifstream inFile;
+
+    std::string path;
+    std::cin >> path;
+    std::cout << path << std::endl;
+
+    inFile.open(path);
+    while (std::cin.fail() || !inFile) {
+        std::cout << "Please provide valid a valid path to valid file!" << std::endl;
+        std::cin.clear();
+        std::cin.ignore(1234, '\n');
+        std::cin >> path;
+        inFile.open(path);
+    }
+
+    return inFile;
+}
+
 void gameMenu::mainMenu() {
     while(game->getGameStatus()) {
         std::cout << ":::::::::::::::::::::::::::::::Main menu:::::::::::::::::::::::::::::::" << std::endl;
@@ -78,6 +97,14 @@ void gameMenu::mainMenu() {
             world->printGrid();
             paramMenu();
             break;
+        case 8:
+        {
+            std::cout << "What is the path to the pattern file? ";
+            std::ifstream file = getInputFile();
+            world->changeGridByFile(file);
+            world->printGrid();
+            break;
+        }
         }
     }
 }

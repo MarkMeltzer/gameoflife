@@ -18,6 +18,27 @@ float gameWorld::getAliveProbability() {
     return aliveProbability;
 }
 
+void gameWorld::changeGridByFile(std::ifstream& file) {
+    char c;
+    int patternStartX = game->getViewPortX();
+    int patternStartY = game->getViewPortY();
+    int x = 0;
+    int y = 0;
+
+    while (file.get(c)) {
+        if (c == '.' or c == ' ') {
+            grid[patternStartY + y][patternStartX + x] = 0;
+            x++;
+        } else if (c == '\n') {
+            y++;
+            x = 0;
+        } else {
+            grid[patternStartY + y][patternStartX + x] = 1;
+            x++;
+        }
+    }
+}
+
 void gameWorld::fillGrid(bool empty) {
     for (int x = 0; x < 200; x++) {
         for (int y = 0; y < 200; y++) {

@@ -5,6 +5,7 @@ class gameMenu;
 
 #include "gameWorld.hpp"
 #include "gameOfLife.hpp"
+#include <fstream>
 
 class gameMenu {
 private:
@@ -15,6 +16,7 @@ public:
     int getMenuInput(int min, int max);
     float getInputFloat(float min, float max);
     char getInputChar();
+    std::ifstream getInputFile();
     void mainMenu();
     void clean();
     void randomize();
