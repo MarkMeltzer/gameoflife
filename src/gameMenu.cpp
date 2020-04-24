@@ -72,8 +72,10 @@ void gameMenu::hundred() {
     for (int i = 0; i < 100; i++) {
         world->updateGame();
         world->printGrid();
+        std::cout << "::: Timestep: " << i + 1 << std::endl << std::endl;
         usleep(50000);
     }
+    world->printGrid();
 }
 
 void gameMenu::moveMenu() {
