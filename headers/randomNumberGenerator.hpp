@@ -3,10 +3,13 @@
 
 class randomNumberGenerator {
 public:
+    // the starting seed and random value
     long seed;
+
     void genSeed();
     float getRnd();
 
+    // constructor
     randomNumberGenerator();
 };
 

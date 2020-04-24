@@ -10,14 +10,15 @@ class gameWorld;
 
 class gameOfLife {
 private:
+    // references to randomNumberGenerator, gameWorld and gameMenu objects
     randomNumberGenerator *rng;
     gameWorld *world;
     gameMenu *menu;
 
+    // game status
     bool running;
 
-    // the coordinates of the top-left corner of the viewport
-    // and the size of the viewport
+    // viewport parameters
     int viewPortX;
     int viewPortY;
     int viewPortSizeX;
@@ -25,37 +26,40 @@ private:
     int viewPortStepSizeX;
     int viewPortStepSizeY;
 
+    // cell representations
     char lifeCellChar;
     char deadCellChar;
 
 public:
-    // Set up
-    gameOfLife(randomNumberGenerator *r, gameWorld *w, gameMenu *m);
-
+    // functions that concern the game status
+    bool getGameStatus();
     void startGame();
     void stopGame();
-    bool getGameStatus();
 
+    // functions that concern the viewport location
     int getViewPortX();
     int getViewPortY();
-
-    int getViewPortSizeX();
-    int getViewPortSizeY();
-
-    int getViewPortStepSizeX();
-    int getViewPortStepSizeY();
-
     void changeViewPortX(int change);
     void changeViewPortY(int change);
 
+    // function that concern the viewport size
+    int getViewPortSizeX();
+    int getViewPortSizeY();
+
+    // functions that concern the viewport stepsize
+    int getViewPortStepSizeX();
+    int getViewPortStepSizeY();
     void changeViewPortStepSizeX(int newSize);
     void changeViewPortStepSizeY(int newSize);
 
+    // functions that concern the character representations
+    char getLifeCellChar();
+    char getDeadCellChar();
     void setLifeCellChar(char c);
     void setDeadCellChar(char c);
 
-    char getLifeCellChar();
-    char getDeadCellChar();
+    // constructor
+    gameOfLife(randomNumberGenerator *r, gameWorld *w, gameMenu *m);
 };
 
 #endif

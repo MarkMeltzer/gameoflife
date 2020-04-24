@@ -14,8 +14,5 @@ int main() {
     world.linkGameObj(&game);
     
     game.startGame();
-
-
-    std::cout << "This is the end of main..." << std::endl;
     return 0;
 }

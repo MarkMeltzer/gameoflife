@@ -9,29 +9,36 @@ class gameOfLife;
 
 class gameWorld {
 private:
-    // safe a reference to the rng and game obj
+    // safe a reference to RandomNumberGenerator and gameOfLife objects
     randomNumberGenerator *rng;
     gameOfLife *game;
 
-
-    // declare grid
+    // the cell grid
     int grid[200][200];
     
-    // initialize properties
+    // probability a cell will become alive when randomized
     float aliveProbability;
 
 public:
-    gameWorld(randomNumberGenerator *r);
-
-    // declare game functions
-    void linkGameObj(gameOfLife *g);
+    // functions that concern the aliveProbability parameter
+    float getAliveProbability();
+    void setAliveProbability(float p);
+    
+    // functions that concern the grid as a whole
     void changeGridByFile(std::ifstream& file);
     void fillGrid(bool empty);
     void printGrid();
+
+    // function to get the next timestep
     void updateGame();
+
+    // functions concerning the neighbours of a cell
     int countAliveNb(int x, int y);
-    void setAliveProbability(float p);
-    float getAliveProbability();
+
+    void linkGameObj(gameOfLife *g);
+
+    // constructor
+    gameWorld(randomNumberGenerator *r);
 };
 
 #endif

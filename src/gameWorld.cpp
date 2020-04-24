@@ -2,34 +2,42 @@
 #include <cstdio>
 #include <iostream>
 
-gameWorld::gameWorld(randomNumberGenerator *r) {
-    rng = r;
-}
-
-void gameWorld::linkGameObj(gameOfLife *g) {
-    game = g;
-}
-
-void gameWorld::setAliveProbability(float p) {
-    aliveProbability = p;
-}
-
+/**
+ * Returns the current the aliveProbability parameter.
+ * 
+ * @return the aliveProbability parameter
+ */
 float gameWorld::getAliveProbability() {
     return aliveProbability;
 }
 
+/**
+ * Changes the current the aliveProbability parameter.
+ * 
+ * @param p the aliveProbability parameter
+ */
+void gameWorld::setAliveProbability(float p) {
+    aliveProbability = p;
+}
+
+/**
+ * Changes the grid according to a pattern file.
+ * 
+ * @param file the ifstream object reference of the file
+ */
 void gameWorld::changeGridByFile(std::ifstream& file) {
     char c;
     int patternStartX = game->getViewPortX();
     int patternStartY = game->getViewPortY();
     int x = 0;
     int y = 0;
-
     while (file.get(c)) {
         if (c == '.' or c == ' ') {
+            // new column of the grid
             grid[patternStartY + y][patternStartX + x] = 0;
             x++;
         } else if (c == '\n') {
+            // new row of the grid
             y++;
             x = 0;
         } else {
@@ -39,6 +47,12 @@ void gameWorld::changeGridByFile(std::ifstream& file) {
     }
 }
 
+/**
+ * Fills the grid either with dead cells or randomly according to the
+ * aliveProbability parameter.
+ * 
+ * @param empty determines whether the grid should be filled with dead cells
+ */
 void gameWorld::fillGrid(bool empty) {
     for (int x = 0; x < 200; x++) {
         for (int y = 0; y < 200; y++) {
@@ -58,6 +72,10 @@ void gameWorld::fillGrid(bool empty) {
     }
 }
 
+/**
+ * Outputs the grid to the console according the viewport and cell
+ * representation parameters.
+ */
 void gameWorld::printGrid() {
     int minX = game->getViewPortX();
     int minY = game->getViewPortY();
@@ -67,6 +85,7 @@ void gameWorld::printGrid() {
     for (int y = minY; y < minY + maxY; y++) {
         for (int x = minX; x < minX + maxX; x++) {
             if (x < 0 || y < 0 || x >= 200 || y >= 200) {
+                // the current coordinates are not within the grid
                 std::cout << '#';
             } else {
                 if (grid[y][x] == 1) {
@@ -81,8 +100,14 @@ void gameWorld::printGrid() {
     std::cout << std::endl;
 }
 
+/**
+ * Updates the grid according to Conways game of life rules.
+ */
 void gameWorld::updateGame() {
+    // create a new grid
     int updatedGrid[200][200];
+
+    // iterater over the old grid to fill the new one
     for (int x = 0; x < 200; x++) {
         for (int y = 0; y < 200; y++) {
             // count the alive neighbours
@@ -109,6 +134,14 @@ void gameWorld::updateGame() {
     }
 }
 
+/**
+ * Counts the number of life cells in within a one cell
+ * distance of a certain cell.
+ * 
+ * @param x_coord the x coordinate of the main cell
+ * @param y_coord the y coordinate of the main cell
+ * @return the amount of neighbours
+ */
 int gameWorld::countAliveNb(int x_coord, int y_coord) {
     int counter = 0;
     for (int x = x_coord - 1; x < x_coord + 2; x++) {
@@ -118,5 +151,24 @@ int gameWorld::countAliveNb(int x_coord, int y_coord) {
             }
         }
     }
+    // do not count the main cell itself, in the case it is alive
     return counter - grid[x_coord][y_coord];
+}
+
+/**
+ * Links a gameOfLife object to this gameWorld object
+ *
+ * @param g the gameOfLife object reference
+ */
+void gameWorld::linkGameObj(gameOfLife *g) {
+    game = g;
+}
+
+/**
+ * Constructor. Stores to a randomNumberGenerator object
+ * 
+ * @param r the randomNumberGenerator object reference
+ */
+gameWorld::gameWorld(randomNumberGenerator *r) {
+    rng = r;
 }

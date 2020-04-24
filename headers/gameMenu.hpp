@@ -9,23 +9,25 @@ class gameMenu;
 
 class gameMenu {
 private:
+    // references to gameOfLife and gameWorld objects
     gameOfLife *game;
     gameWorld *world;
 
 public:
+    // input functions
     int getMenuInput(int min, int max);
     float getInputFloat(float min, float max);
     char getInputChar();
     std::ifstream getInputFile();
+
+    // menus
     void mainMenu();
-    void clean();
-    void randomize();
-    void one();
-    void hundred();
-    void linkGameObj(gameOfLife *g);
     void moveMenu();
     void paramMenu();
 
+    void linkGameObj(gameOfLife *g);
+
+    // constructor
     gameMenu(gameWorld *w);
 };
 
